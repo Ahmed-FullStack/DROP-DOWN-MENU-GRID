@@ -1,0 +1,65 @@
+:where(button, a, .ripple) {
+	--bg: hsl(0 0% 52% / 0.6);
+	--tansition-duration-wms: 220;
+	--tansition-duration: calc(var(--tansition-duration-wms) * 1ms);
+	--transition-timing-func: ease-out;
+	--opacity-duration-wms: 350;
+	--opacity-duration: calc(var(--opacity-duration-wms) * 1ms);
+	--opacity-timing-func: ease-out;
+	isolation: isolate;
+	position: relative;
+	display: inline-block;
+	z-index: 1;
+}
+:where(a, button, .ripple) > * {
+	pointer-events: none;
+}
+paper-ripple,
+.paper-style,
+.wave {
+	overflow: hidden;
+	position: absolute;
+	pointer-events: none;
+	margin: 0;
+}
+paper-ripple {
+	z-index: -1;
+}
+.paper-style {
+	inset: 0;
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+}
+.wave {
+	top: var(--y);
+	left: var(--x);
+	border-radius: 50%;
+	width: 100%;
+	background-color: var(--bg);
+	translate: -50% -50%;
+	scale: 0;
+	aspect-ratio: 1 / 1;
+}
+
+.animate-wave {
+	animation: animate-wave var(--tansition-duration)
+		var(--transition-timing-func) forwards;
+}
+.animate-opacity {
+	opacity: 0;
+	transition: opacity var(--opacity-duration) ;
+}
+
+@keyframes animate-wave {
+	0%{
+		scale: .35;
+		background: transparent;
+	}
+	100% {
+		background: var(--bg);
+		scale: var(--ripple-scale);
+		top: 50%;
+		left: 50%;
+	}
+}
